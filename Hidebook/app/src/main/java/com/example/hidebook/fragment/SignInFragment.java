@@ -41,7 +41,7 @@ import static com.example.hidebook.fragment.SignUpFragment.EMAIL_REGEX;
 
 public class SignInFragment extends Fragment {
 
-    private TextView tvSignUp;
+    private TextView tvSignUp, tvFgPass;
     //Linh
     private EditText emailET, passET;
     private Button loginBtn;
@@ -75,6 +75,7 @@ public class SignInFragment extends Fragment {
 
     public void init(View view){
         tvSignUp = view.findViewById(R.id.tv_signup);
+        tvFgPass = view.findViewById(R.id.tv_forgotpass);
         //Linh
         emailET = view.findViewById(R.id.et_email);
         passET = view.findViewById(R.id.et_pass);
@@ -142,6 +143,13 @@ public class SignInFragment extends Fragment {
                                 }
                             }
                         });
+            }
+        });
+
+        tvFgPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((FragmentReplacerActivity) getActivity()).setFragment(new ForgotPasswordFragment());
             }
         });
     }

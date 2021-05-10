@@ -10,6 +10,8 @@
     <string name="tv_signin">Bạn đã có tài khoản? Bấm để đăng nhập</string>
     <string name="sign_up">Đăng ký</string>
     <string name="confirm_password">Xác nhận mật khẩu</string>
-    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="forgot_password">Quên mật khẩu</string>
     <string name="username">Tên người dùng</string>
+    <string name="recover">Recover</string>
+    <string name="back_to_login">Back to login</string>
 </resources>
