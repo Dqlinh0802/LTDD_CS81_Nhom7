@@ -162,7 +162,7 @@ public class SignUpFragment extends Fragment {
                                             }
                                         }
                                     });
-                            uploadUser(user, email, pass);
+                            uploadUser(user, name, email);
 
                         }else {
 

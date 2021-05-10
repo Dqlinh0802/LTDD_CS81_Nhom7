@@ -111,7 +111,7 @@ public class SignInFragment extends Fragment {
                 String pass = passET.getText().toString();
 
                 //Linh
-                if(email.isEmpty() || email.matches(EMAIL_REGEX)){
+                if(email.isEmpty() || !email.matches(EMAIL_REGEX)){
 
                     emailET.setError("Input valid email");
                     return;
