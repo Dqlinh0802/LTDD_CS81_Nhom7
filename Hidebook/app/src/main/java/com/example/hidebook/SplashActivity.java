@@ -12,6 +12,10 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+
 public class SplashActivity extends AppCompatActivity {
 
     LinearLayout ivLogo;
@@ -27,6 +31,11 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        //Linh
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
         //
         ivLogo = findViewById(R.id.iv_logo);
         tvName = findViewById(R.id.tv_name);
@@ -51,16 +60,34 @@ public class SplashActivity extends AppCompatActivity {
 
         //Set animate text
         animaText("Hidebook");
+
+        //Bao
         //Initialize handler
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //Redirect to mainActivity
+//                startActivity(new Intent(SplashActivity.this, FragmentReplacerActivity.class));
+//                //Finish activity
+//                finish();;
+//            }
+//        }, 2500);
+
+        //Linh
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //Redirect to mainActivity
-                startActivity(new Intent(SplashActivity.this, FragmentReplacerActivity.class));
-                //Finish activity
-                finish();;
+
+                if(user == null){
+                    startActivity(new Intent(SplashActivity.this, FragmentReplacerActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
+                finish();
             }
         }, 2500);
+
 
     }
 

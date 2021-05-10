@@ -1,5 +1,6 @@
 package com.example.hidebook.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hidebook.FragmentReplacerActivity;
+import com.example.hidebook.MainActivity;
 import com.example.hidebook.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignUpFragment extends Fragment {
@@ -29,6 +43,13 @@ public class SignUpFragment extends Fragment {
     private String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])" +
             "(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+" +
             "=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
+
+
+
+    //Linh
+    private FirebaseAuth auth;
+    public static final String EMAIL_REGEX = "^(.+)@(.+)$";
+
 
 
     public SignUpFragment() {
@@ -64,6 +85,9 @@ public class SignUpFragment extends Fragment {
         signupBT = view.findViewById(R.id.btn_signup);
         //
         signinTV = view.findViewById(R.id.tv_signin);
+
+        //Linh
+        auth = FirebaseAuth.getInstance();
     }
 
 
@@ -97,12 +121,89 @@ public class SignUpFragment extends Fragment {
                     cfpassET.setError("Password not match");
                     return;
                 }
-                if(email.isEmpty() || email.matches(Patterns.EMAIL_ADDRESS.toString())){
+
+                //Bao
+//                if(email.isEmpty() || email.matches(Patterns.EMAIL_ADDRESS.toString())){
+//                    nameET.setError("Please input valid email");
+//                    return;
+//                }
+
+                //Linh
+                if(email.isEmpty() || !email.matches(EMAIL_REGEX)){
                     nameET.setError("Please input valid email");
                     return;
                 }
+
+                //Linh
+                createAccount(name, email, pass);
+
+
             }
         });
 
     }
+
+    //Linh
+    private void createAccount(String name, String email, String pass){
+        auth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if(task.isSuccessful()){
+                            FirebaseUser user = auth.getCurrentUser();
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(getContext(), "Email verification link send",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                            uploadUser(user, email, pass);
+
+                        }else {
+
+                            String exception = task.getException().getMessage();
+                            Toast.makeText(getContext(), "Error"+ exception, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+    }
+
+    //Linh
+    private void uploadUser(FirebaseUser user, String name, String email){
+        Map<String , Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("email", email);
+        map.put("profileImage", " ");
+        map.put("uid", user.getUid());
+
+
+        FirebaseFirestore.getInstance().collection("User").document(user.getUid())
+                .set(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            assert getActivity() != null;
+                            startActivity(new Intent(getContext().getApplicationContext(), MainActivity.class));
+                            getActivity().finish();
+
+
+                        }else {
+
+                            String exception = task.getException().getMessage();
+                            Toast.makeText(getContext(), "Error"+ task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
 }
