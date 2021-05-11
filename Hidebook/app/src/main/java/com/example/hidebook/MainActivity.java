@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
-    private ViewPagerAdapter pagerAdapter;
+    ViewPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,30 +65,43 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification_selected));
         //
-        tabLayout.setTabGravity(tabLayout.GRAVITY_CENTER);
-        tabLayout.setTabMode(tabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         //
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         //
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
                 switch (tab.getPosition()){
                     case 0:
                         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
-                    case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
-                    case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
-                    case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification_selected);
-                    case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        break;
+
+                        case 1:
+                            tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                            break;
+
+                        case 2:
+                            tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                            break;
+
+                        case 3:
+                            tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
+                            break;
+
+                        case 4:
+                            tabLayout.getTabAt(4).setIcon(R.drawable.ic_notification);
+                            break;
                 }
             }
 
@@ -97,14 +110,23 @@ public class MainActivity extends AppCompatActivity {
                 switch (tab.getPosition()){
                     case 0:
                         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+                        break;
+
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        break;
+
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                        break;
+
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification);
+                        break;
+
                     case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_notification_selected);
+                        break;
                 }
             }
 
@@ -113,14 +135,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (tab.getPosition()){
                     case 0:
                         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
+                        break;
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                        break;
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification_selected);
+                        tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
+                        break;
                     case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_notification);
+                        break;
                 }
             }
         });

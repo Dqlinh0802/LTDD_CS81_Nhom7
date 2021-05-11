@@ -14,4 +14,7 @@
     <string name="username">Tên người dùng</string>
     <string name="recover">Recover</string>
     <string name="back_to_login">Back to login</string>
+    <string name="posts">Posts</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
 </resources>
