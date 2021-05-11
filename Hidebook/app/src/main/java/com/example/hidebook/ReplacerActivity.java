@@ -11,14 +11,15 @@ import android.widget.FrameLayout;
 import com.example.hidebook.fragment.SignInFragment;
 import com.example.hidebook.fragment.SignUpFragment;
 
-public class FragmentReplacerActivity extends AppCompatActivity {
+public class ReplacerActivity extends AppCompatActivity {
+
 
     private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_replacer);
+        setContentView(R.layout.activity_replacer);
         // hide the title bar
         getSupportActionBar().hide();
         //Set full screen
@@ -41,4 +42,3 @@ public class FragmentReplacerActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 }
-

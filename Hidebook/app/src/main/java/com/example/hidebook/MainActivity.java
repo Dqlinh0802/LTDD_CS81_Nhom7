@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         settingBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, FragmentReplacerActivity.class));
+                    startActivity(new Intent(MainActivity.this, ReplacerActivity.class));
                     //Go back to home page
                     finish();
                 }
