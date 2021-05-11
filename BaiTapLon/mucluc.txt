@@ -1,0 +1,16 @@
+tập 6 : màn hình chính
+tập 7 :màn hình chính
+tập 8 : màn hình chính
+tập 9 : profile
+tập 10 : xử lí code của login và quên mật khẩu
+11: xử lí profile
+12:
+13:
+14:
+15:
+16:
+17: search
+18:
+19:
+20:
+21:
