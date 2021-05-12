@@ -162,7 +162,7 @@ public class SignUpFragment extends Fragment {
                                             }
                                         }
                                     });
-                            uploadUser(user, email, pass);
+                            uploadUser(user, name, email);
 
                         }else {
 
@@ -182,6 +182,9 @@ public class SignUpFragment extends Fragment {
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());
+        map.put("following",0);
+        map.put("followers",0);
+        map.put("status"," ");
 
 
         FirebaseFirestore.getInstance().collection("User").document(user.getUid())
