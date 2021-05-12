@@ -5,6 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addTabs(){
+        //
+        tabLayout.setSelectedTabIndicatorHeight(0);
+        //
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
@@ -74,21 +80,35 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         //
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        //tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
+        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 switch (tab.getPosition()){
                     case 0:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
+                        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+
+                        break;
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+
+                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
+
+                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                        break;
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification_selected);
+                        tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
+                        break;
                     case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        break;
                 }
             }
 
@@ -96,15 +116,22 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+                        //tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+                        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ABCBC3"), PorterDuff.Mode.SRC_IN);
+                        break;
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
+                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                        break;
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification);
+                        //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification);
+                        tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#ABCBC3"), PorterDuff.Mode.SRC_IN);
+                        break;
                     case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        break;
                 }
             }
 
@@ -112,16 +139,26 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
+                        tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        break;
                     case 1:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+
+                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        break;
                     case 2:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_add);
+
+                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
+                        break;
                     case 3:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_notification_selected);
+                        tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
+                        break;
                     case 4:
-                        tabLayout.getTabAt(0).setIcon(R.drawable.ic_search);
+
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        break;
                 }
+
             }
         });
     }
