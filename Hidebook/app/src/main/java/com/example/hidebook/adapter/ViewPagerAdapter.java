@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         //trả về fragment tương ứng
-        switch ( position){
+        switch (position){
             case 0:
                 return new Home();
             case 1:

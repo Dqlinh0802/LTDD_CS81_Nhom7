@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
-    private ViewPagerAdapter pagerAdapter;
+    ViewPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         settingBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, FragmentReplacerActivity.class));
+                    startActivity(new Intent(MainActivity.this, ReplacerActivity.class));
                     //Go back to home page
                     finish();
                 }
@@ -71,25 +71,29 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification_selected));
         //
-        tabLayout.setTabGravity(tabLayout.GRAVITY_CENTER);
-        tabLayout.setTabMode(tabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         //
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         //
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
         //tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_selected);
         tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
                 switch (tab.getPosition()){
                     case 0:
+
                         tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
 
                         break;
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                         tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
                         break;
+
                 }
             }
 
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
+
                         //tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
                         tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#ABCBC3"), PorterDuff.Mode.SRC_IN);
                         break;
@@ -131,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
                         tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+
                         break;
                 }
             }
@@ -139,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     case 0:
+
                         tabLayout.getTabAt(0).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
                         break;
                     case 1:
@@ -156,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
 
                         tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+
                         break;
                 }
 

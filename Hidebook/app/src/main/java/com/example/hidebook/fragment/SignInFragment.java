@@ -16,14 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hidebook.FragmentReplacerActivity;
 import com.example.hidebook.MainActivity;
 import com.example.hidebook.R;
+import com.example.hidebook.ReplacerActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -97,7 +95,7 @@ public class SignInFragment extends Fragment {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentReplacerActivity) getActivity()).setFragment(new SignUpFragment());
+                ((ReplacerActivity) getActivity()).setFragment(new SignUpFragment());
             }
         });
 
@@ -149,7 +147,7 @@ public class SignInFragment extends Fragment {
         tvFgPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentReplacerActivity) getActivity()).setFragment(new ForgotPasswordFragment());
+                ((ReplacerActivity) getActivity()).setFragment(new ForgotPasswordFragment());
             }
         });
     }
@@ -167,34 +165,6 @@ public class SignInFragment extends Fragment {
     }
 
 
-
-    //signInGoogle
-    //Linh
-//    private void signIn() {
-//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-//        startActivityForResult(signInIntent, RC_SIGN_IN);
-//    }
-
-    //Linh
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-//        if (requestCode == RC_SIGN_IN) {
-//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-//            try {
-//                // Google Sign In was successful, authenticate with Firebase
-//                GoogleSignInAccount account = task.getResult(ApiException.class);
-//
-//                assert account != null;
-//                firebaseAuthWithGoogle(account.getIdToken());
-//            } catch (ApiException e) {
-//                // Google Sign In failed, update UI appropriately
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     //Linh
     private void firebaseAuthWithGoogle(String idToken) {
