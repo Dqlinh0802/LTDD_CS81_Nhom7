@@ -2,15 +2,15 @@ package com.example.hidebook.model;
 
 public class HomeModel {
 
-    private String userName, timetamp, profileImage, postImage, uid;
+    private String userName, timestamp, profileImage, postImage, uid;
     private int likeCount;
 
     public HomeModel() {
     }
 
-    public HomeModel(String userName, String timetamp, String profileImage, String postImage, String uid, int likeCount) {
+    public HomeModel(String userName, String timestamp, String profileImage, String postImage, String uid, int likeCount) {
         this.userName = userName;
-        this.timetamp = timetamp;
+        this.timestamp = timestamp;
         this.profileImage = profileImage;
         this.postImage = postImage;
         this.uid = uid;
@@ -26,11 +26,11 @@ public class HomeModel {
     }
 
     public String getTimetamp() {
-        return timetamp;
+        return timestamp;
     }
 
     public void setTimetamp(String timetamp) {
-        this.timetamp = timetamp;
+        this.timestamp = timetamp;
     }
 
     public String getProfileImage() {

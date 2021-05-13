@@ -1,7 +1,6 @@
 package com.example.hidebook;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -43,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+
 
         settingBT = findViewById(R.id.ib_setting);
         viewPager = findViewById(R.id.viewPager);
@@ -98,20 +98,21 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 1:
-
-                        tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(1).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        //tabLayout.getTabAt(1).setIcon(R.drawable.ic_search);
                         break;
                     case 2:
+                        tabLayout.getTabAt(2).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        //tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
 
-                        tabLayout.getTabAt(2).setIcon(R.drawable.ic_add);
                         break;
                     case 3:
                         tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
                         //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
                         break;
                     case 4:
-
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+                        //tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
                         break;
 
                 }
