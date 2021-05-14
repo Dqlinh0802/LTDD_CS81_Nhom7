@@ -85,7 +85,7 @@ public class Search extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                reference.orderBy("name").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -126,7 +126,7 @@ public class Search extends Fragment {
             public void onEvent(@Nullable  QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(error != null)
                     return;
-                if(value != null)
+                if(value == null)
                     return;
 
                 list.clear();
