@@ -2,14 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/relativeLayout"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="6dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/profileImage"
-        app:civ_border_color="@color/black"
+        android:src="@color/Title"
+        app:civ_border_color="@color/Title"
         app:civ_border_width="2dp"/>
 
     <TextView
@@ -30,6 +32,7 @@
         android:layout_toRightOf="@+id/profileImage"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:layout_below="@id/nameTV"
         android:text="Status"
         android:textStyle="bold"/>
 </RelativeLayout>
