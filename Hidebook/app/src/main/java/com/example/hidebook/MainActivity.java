@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification_selected));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_user));
         //
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#ABCBC3"), PorterDuff.Mode.SRC_IN);
                         break;
                     case 4:
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
 
                         break;
                 }
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
 
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
 
                         break;
                 }

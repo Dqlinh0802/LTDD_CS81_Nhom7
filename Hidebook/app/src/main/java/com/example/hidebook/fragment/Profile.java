@@ -136,7 +136,7 @@ public class Profile extends Fragment {
 
 
                 //lỗi
-                //nameTv.setText(status);
+                //nameTv.setText(name);
                 toolbarNameTv.setText(name);
                 statusTv.setText(status);
                 //followersCountTv.setText(String.valueOf(followers));
@@ -147,7 +147,6 @@ public class Profile extends Fragment {
                         .placeholder(R.drawable.ic_person)
                         .timeout(6500)
                         .into(profileImage);
-
             }
         });
 

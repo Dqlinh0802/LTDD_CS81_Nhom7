@@ -55,14 +55,14 @@ public class Home extends Fragment {
     //Linh
     private FirebaseUser user;
     DocumentReference reference;
-    private ImageButton settingBT;
+    private ImageButton logoutBT;
 
     public Home() {
         // Required empty public constructor
     }
 
     private void clickListener(){
-        settingBT.setOnClickListener(new View.OnClickListener() {
+        logoutBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Bảo
@@ -112,7 +112,7 @@ public class Home extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        settingBT = view.findViewById(R.id.ib_setting);
+        logoutBT = view.findViewById(R.id.ib_logout);
 
         //Linh
         FirebaseAuth auth = FirebaseAuth.getInstance();
