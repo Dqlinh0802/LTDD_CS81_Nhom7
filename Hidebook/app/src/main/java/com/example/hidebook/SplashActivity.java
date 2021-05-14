@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         // hide the title bar
-        //getSupportActionBar().hide();
+        getSupportActionBar().hide();
         //Set full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Initialize object animator

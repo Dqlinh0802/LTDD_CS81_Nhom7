@@ -107,7 +107,7 @@ public class Profile extends Fragment {
 
 
                     //lỗi
-                    //nameTv.setText(status);
+                    //nameTv.setText(name);
                     toolbarNameTv.setText(name);
                     statusTv.setText(status);
                     followersCountTv.setText(String.valueOf(followers));
@@ -127,9 +127,9 @@ public class Profile extends Fragment {
     }
 
     private void init(View view) {
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        assert getActivity() != null;
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        assert getActivity() != null;
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         nameTv = view.findViewById(R.id.tv_name);
         statusTv = view.findViewById(R.id.statusTV);
@@ -141,6 +141,7 @@ public class Profile extends Fragment {
         followBtn = view.findViewById(R.id.followBtn);
         recyclerView = view.findViewById(R.id.recyclerView);
         countLayout = view.findViewById(R.id.countLayout);
+        
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -155,7 +156,7 @@ public class Profile extends Fragment {
 
         DocumentReference reference = FirebaseFirestore.getInstance().collection("User").document(uid);
 
-        Query query = reference.collection("Post Images");
+        Query query = reference.collection("Images");
 
         FirestoreRecyclerOptions<PostImageModel> options = new FirestoreRecyclerOptions.Builder<PostImageModel>()
                 .setQuery(query,PostImageModel.class)
