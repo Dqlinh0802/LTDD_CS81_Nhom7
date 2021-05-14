@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         viewPager = findViewById(R.id.viewPager);

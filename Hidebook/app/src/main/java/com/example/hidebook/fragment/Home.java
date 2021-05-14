@@ -1,5 +1,7 @@
 package com.example.hidebook.fragment;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -52,18 +54,14 @@ public class Home extends Fragment {
     DocumentReference reference;
     private ImageButton settingBT;
 
+    FirebaseAuth mFirebaseAuth;
+
+
     public Home() {
         // Required empty public constructor
     }
 
-    private void clickListener(){
-        settingBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-            }
-        });
-    }
+
 
 
 
@@ -108,7 +106,26 @@ public class Home extends Fragment {
         //Linh
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        //Bảo
+        //Test logout
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
     }
+
+    private void clickListener(){
+        settingBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Bảo
+                //Test logout
+                mFirebaseAuth.signOut();
+                startActivity(new Intent(getActivity(), ReplacerActivity.class));
+
+            }
+        });
+    }
+
+
 
     //Linh
     private void loadDataFromFirestore(){

@@ -99,8 +99,8 @@ public class Profile extends Fragment {
             if (value.exists()){
                 String name = value.getString("name");
                 String status = value.getString("status");
-                int followers = value.getLong("followers").intValue();
-                int following = value.getLong("following").intValue();
+                //int followers = value.getLong("followers").intValue();
+                //int following = value.getLong("following").intValue();
 
                 String profileURL = value.getString("profileImage");
 
@@ -109,8 +109,8 @@ public class Profile extends Fragment {
                 //nameTv.setText(status);
                 toolbarNameTv.setText(name);
                 statusTv.setText(status);
-                followersCountTv.setText(String.valueOf(followers));
-                followingCountTv.setText(String.valueOf(following));
+                //followersCountTv.setText(String.valueOf(followers));
+                //followingCountTv.setText(String.valueOf(following));
 
                 Glide.with(getContext().getApplicationContext())
                         .load(profileURL)
