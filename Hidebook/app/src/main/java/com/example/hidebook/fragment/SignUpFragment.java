@@ -191,6 +191,8 @@ public class SignUpFragment extends Fragment {
         map.put("following", 0);
         map.put("followers", 0);
         map.put("status"," ");
+        //Bảo -
+        map.put("search", name.toLowerCase());
 
 
 

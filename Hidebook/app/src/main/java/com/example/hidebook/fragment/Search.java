@@ -2,65 +2,163 @@ package com.example.hidebook.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hidebook.R;
+import com.example.hidebook.adapter.UserAdapter;
+import com.example.hidebook.model.Users;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Search#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Search extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    SearchView searchView;
+    RecyclerView recyclerView;
+
+    UserAdapter userAdapter;
+    private List<Users> list;
+
+    CollectionReference reference;
 
     public Search() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Search.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Search newInstance(String param1, String param2) {
-        Search fragment = new Search();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        init(view);
+
+        reference = FirebaseFirestore.getInstance().collection("User");
+
+        loadUserData();
+
+
+        searchUser();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+    }
+
+    private void searchUser(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if(task.isSuccessful()){
+                            list.clear();
+                            for(DocumentSnapshot snapshot: task.getResult()){
+                                if(!snapshot.exists())
+                                    return;
+
+                                Users users = snapshot.toObject(Users.class);
+                                list.add(users);
+
+                            }
+                            userAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+                });
+
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+    }
+
+    private void loadUserData(){
+
+
+
+        reference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                    return;
+                if(value == null)
+                    return;
+
+                list.clear();
+                for(QueryDocumentSnapshot snapshot: value){
+
+                    Users users = snapshot.toObject(Users.class);
+                    list.add(users);
+                }
+                userAdapter.notifyDataSetChanged();
+
+
+            }
+        });
+
+    }
+
+
+
+    private void init(View view){
+        searchView = view.findViewById(R.id.searchView);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        list = new ArrayList<>();
+        userAdapter = new UserAdapter(list);
+        recyclerView.setAdapter(userAdapter);
+
     }
 }

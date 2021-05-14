@@ -58,13 +58,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 
-
     //Bảo
     //Add frag - cắt ảnh
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
     //Ngan
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.0'
+
     //Tung
     implementation 'com.karumi:dexter:6.2.2'
 

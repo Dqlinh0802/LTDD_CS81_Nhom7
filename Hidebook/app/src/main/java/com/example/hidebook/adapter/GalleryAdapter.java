@@ -1,7 +1,5 @@
 package com.example.hidebook.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +34,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.GalleryH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  GalleryAdapter.GalleryHolder holder,final int position) {
+    public void onBindViewHolder(@NonNull  GalleryHolder holder, final int position) {
         Glide.with(holder.itemView.getContext().getApplicationContext())
                 .load(list.get(position).getPicUri())
                 .into(holder.imageView);

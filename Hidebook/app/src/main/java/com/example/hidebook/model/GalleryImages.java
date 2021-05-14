@@ -7,7 +7,7 @@ public class GalleryImages {
     public Uri picUri;
 
 
-    public  GalleryImages(){
+    public GalleryImages(){
 
     }
 

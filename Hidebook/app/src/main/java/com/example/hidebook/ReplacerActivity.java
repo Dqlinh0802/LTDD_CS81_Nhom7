@@ -21,7 +21,7 @@ public class ReplacerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_replacer);
         // hide the title bar
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         //Set full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 

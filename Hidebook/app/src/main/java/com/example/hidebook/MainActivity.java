@@ -1,6 +1,8 @@
 package com.example.hidebook;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -18,7 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ImageButton settingBT;
+
 
     private ViewPager viewPager;
 
@@ -29,39 +31,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // hide the title bar
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         //Set full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         init();
         //Add icon
         addTabs();
-        //Test log out
-        clickListener();
+
 
     }
 
     private void init(){
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
-        settingBT = findViewById(R.id.ib_setting);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
 
     }
 
-    private void clickListener(){
-        settingBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, ReplacerActivity.class));
-                    //Go back to home page
-                    finish();
-                }
-            });
-    }
 
     private void addTabs(){
         //
