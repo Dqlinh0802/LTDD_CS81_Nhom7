@@ -116,7 +116,7 @@ public class Add extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageReference = storage.getReference().child("Post Image/"+System.currentTimeMillis());
+                StorageReference storageReference = storage.getReference().child("Post Images/"+System.currentTimeMillis());
 
                 storageReference.putFile(imageUri)
                         .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -191,7 +191,8 @@ public class Add extends Fragment {
                                         File[] files = file.listFiles();
                                         assert files != null;
                                         for (File file1 : files){
-                                            if (file1.getAbsolutePath().endsWith(".jpg") || file1.getAbsolutePath().endsWith(".png")){
+                                            if (file1.getAbsolutePath().endsWith(".jpg") || file1.getAbsolutePath().endsWith(".png")
+                                                    || file1.getAbsolutePath().endsWith(".jpeg")){
                                                 list.add(new GalleryImages(Uri.fromFile(file1)));
                                                 adapter.notifyDataSetChanged();
 

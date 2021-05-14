@@ -47,20 +47,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     @Override
     public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
         holder.tv_userName.setText(list.get(position).getUserName());
-        holder.tv_time.setText(list.get(position).getTimetamp());
+        holder.tv_time.setText(""+ list.get(position).getTimestamp());
 
         int count = list.get(position).getLikeCount();
         if(count == 0)
         {
             holder.tv_likeCount.setVisibility(View.INVISIBLE);
 
-        }else if(count == 1)
-        {
+        }else if(count == 1) {
             holder.tv_likeCount.setText(count + " like");
-        }else
-        {
+        }else {
             holder.tv_likeCount.setText(count + " likes");
         }
+
+        holder.tv_description.setText(list.get(position).getDescription());
 
         Random random = new Random();
         int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
@@ -72,7 +72,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
                 .into(holder.profileImage);
 
         Glide.with(context.getApplicationContext())
-                .load(list.get(position).getPostImage())
+                .load(list.get(position).getImageUrl())
                 .placeholder(new ColorDrawable(color))
                 .timeout(7000)
                 .into(holder.imageView);
@@ -87,7 +87,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     static class HomeHolder extends RecyclerView.ViewHolder{
 
         private CircleImageView profileImage;
-        private TextView tv_userName, tv_time, tv_likeCount;
+        private TextView tv_userName, tv_time, tv_likeCount,tv_description;
         private ImageView imageView;
         private ImageButton btn_like, btn_comment, btn_share;
         public HomeHolder(@NonNull View itemView) {
@@ -100,6 +100,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
             btn_like = itemView.findViewById(R.id.btn_like);
             btn_comment = itemView.findViewById(R.id.btn_comment);
             btn_share = itemView.findViewById(R.id.btn_share);
+            tv_description = itemView.findViewById(R.id.tv_desc);
 
         }
     }

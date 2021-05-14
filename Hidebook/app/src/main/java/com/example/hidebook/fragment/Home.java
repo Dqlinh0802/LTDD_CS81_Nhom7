@@ -1,7 +1,5 @@
 package com.example.hidebook.fragment;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -47,21 +45,34 @@ public class Home extends Fragment {
     private RecyclerView recyclerView;
     HomeAdapter adapter;
     private List<HomeModel> list;
+    //Bao
+    FirebaseAuth mFirebaseAuth;
 
+
+    //Linh
+    public static int LIST_SIZE = 0;
 
     //Linh
     private FirebaseUser user;
     DocumentReference reference;
     private ImageButton settingBT;
 
-    FirebaseAuth mFirebaseAuth;
-
-
     public Home() {
         // Required empty public constructor
     }
 
+    private void clickListener(){
+        settingBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Bảo
+                //Test logout
+                mFirebaseAuth.signOut();
+                startActivity(new Intent(getActivity(), ReplacerActivity.class));
 
+            }
+        });
+    }
 
 
 
@@ -106,63 +117,63 @@ public class Home extends Fragment {
         //Linh
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
         //Bảo
         //Test logout
         mFirebaseAuth = FirebaseAuth.getInstance();
-
     }
-
-    private void clickListener(){
-        settingBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Bảo
-                //Test logout
-                mFirebaseAuth.signOut();
-                startActivity(new Intent(getActivity(), ReplacerActivity.class));
-
-            }
-        });
-    }
-
-
 
     //Linh
     private void loadDataFromFirestore(){
 
-        list.add(new HomeModel("Tung","11/05/2021","","","123456",10));
-        list.add(new HomeModel("Bao","12/05/2021","","","341256",171));
-        list.add(new HomeModel("Ngan","13/05/2021","","","134256",102));
-        list.add(new HomeModel("Quang","14/05/2021","","","156234",13));
-        list.add(new HomeModel("Phong","14/05/2021","","","156234",33));
+//        list.add(new HomeModel("Tung","11/05/2021","","","123456",10));
+//        list.add(new HomeModel("Bao","12/05/2021","","","341256",171));
+//        list.add(new HomeModel("Ngan","13/05/2021","","","134256",102));
+//        list.add(new HomeModel("Quang","14/05/2021","","","156234",13));
+//        list.add(new HomeModel("Phong","14/05/2021","","","156234",33));
 
-//        CollectionReference reference = FirebaseFirestore.getInstance().collection("User")
-//                .document(user.getUid())
-//                .collection("Post Images");
-//
-//        reference.addSnapshotListener(getActivity(), new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//
-//
-//                if(error != null){
-//                    Log.e("Error", error.getMessage());
-//                    return;
-//                }
-//                for (QueryDocumentSnapshot snapshot : value){
-//
-//                    list.add(new HomeModel(snapshot.get("userName").toString(),
-//                            snapshot.get("timestamp").toString(),
-//                            snapshot.get("profileImage").toString(),
-//                            snapshot.get("postImage").toString(),
-//                            snapshot.get("uid").toString(),
-//                            Integer.parseInt(snapshot.get("likeCount").toString())
-//                            ));
-//                }
-//
-//            }
-//        });
+        CollectionReference reference = FirebaseFirestore.getInstance().collection("User")
+                .document(user.getUid())
+                .collection("Post Images");
 
-        adapter.notifyDataSetChanged();
+        reference.addSnapshotListener((value, error) -> {
+
+            if(error != null){
+                Log.e("Error", error.getMessage());
+                return;
+            }
+
+            if(value == null)
+                return;
+
+            list.clear();
+
+            for (QueryDocumentSnapshot snapshot : value){
+
+
+                if(!snapshot.exists())
+                    return;
+
+
+                HomeModel model = snapshot.toObject(HomeModel.class);
+
+                list.add(new HomeModel(
+                        model.getUserName(),
+                        model.getProfileImage(),
+                        model.getImageUrl(),
+                        model.getUid(),
+                        model.getComments(),
+                        model.getDescription(),
+                        model.getId(),
+                        model.getTimestamp(),
+                        model.getLikeCount()
+                ));
+            }
+            adapter.notifyDataSetChanged();
+
+
+            LIST_SIZE = list.size();
+        });
+
     }
 }

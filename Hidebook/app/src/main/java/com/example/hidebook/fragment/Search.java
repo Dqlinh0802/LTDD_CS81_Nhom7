@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -86,6 +87,8 @@ public class Search extends Fragment {
             public boolean onQueryTextSubmit(String query) {
 
                 reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
@@ -94,6 +97,7 @@ public class Search extends Fragment {
                             for(DocumentSnapshot snapshot: task.getResult()){
                                 if(!snapshot.exists())
                                     return;
+
                                 Users users = snapshot.toObject(Users.class);
                                 list.add(users);
 
@@ -149,12 +153,12 @@ public class Search extends Fragment {
         searchView = view.findViewById(R.id.searchView);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        //recyclerView.setHasFixedSize(true);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         list = new ArrayList<>();
         userAdapter = new UserAdapter(list);
-        //recyclerView.setAdapter(userAdapter);
+        recyclerView.setAdapter(userAdapter);
 
     }
 }
