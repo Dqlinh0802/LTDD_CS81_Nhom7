@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,7 +42,6 @@ public class Profile extends Fragment {
     private CircleImageView profileImage ;
     private Button followBtn ;
     private RecyclerView recyclerView;
-
 
     private LinearLayout countLayout;
 
@@ -88,41 +88,38 @@ public class Profile extends Fragment {
     }
 
     private void loadBasicData() {
-        DocumentReference userRef = FirebaseFirestore.getInstance().collection("User").document(user.getUid());
+        DocumentReference userRef = FirebaseFirestore.getInstance().collection("User")
+                .document(user.getUid());
 
-        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error != null)
-                    return;
+        userRef.addSnapshotListener((value, error) -> {
+            if(error != null)
+                return;
 
-                assert value != null;
-                if (value.exists()){
-                    String name = value.getString("name");
-                    String status = value.getString("status");
-                    int followers = value.getLong("followers").intValue();
-                    int following = value.getLong("following").intValue();
+            assert value != null;
+            if (value.exists()){
+                String name = value.getString("name");
+                String status = value.getString("status");
+                int followers = value.getLong("followers").intValue();
+                int following = value.getLong("following").intValue();
 
-                    String profileURL = value.getString("profileImage");
+                String profileURL = value.getString("profileImage");
 
 
-                    //lỗi
-                    //nameTv.setText(status);
-                    toolbarNameTv.setText(name);
-                    statusTv.setText(status);
-                    followersCountTv.setText(String.valueOf(followers));
-                    followingCountTv.setText(String.valueOf(following));
+                //lỗi
+                //nameTv.setText(status);
+                toolbarNameTv.setText(name);
+                statusTv.setText(status);
+                followersCountTv.setText(String.valueOf(followers));
+                followingCountTv.setText(String.valueOf(following));
 
-                    Glide.with(getContext().getApplicationContext())
-                            .load(profileURL)
-                            .placeholder(R.drawable.ic_person)
-                            .timeout(6500)
-                            .into(profileImage);
+                Glide.with(getContext().getApplicationContext())
+                        .load(profileURL)
+                        .placeholder(R.drawable.ic_person)
+                        .timeout(6500)
+                        .into(profileImage);
 
-                }
             }
         });
-
 
     }
 

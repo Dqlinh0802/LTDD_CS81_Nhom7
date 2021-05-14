@@ -20,7 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ImageButton settingBT;
+
 
     private ViewPager viewPager;
 
@@ -38,32 +38,20 @@ public class MainActivity extends AppCompatActivity {
         init();
         //Add icon
         addTabs();
-        //Test log out
-        clickListener();
+
 
     }
 
     private void init(){
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
 
-        settingBT = findViewById(R.id.ib_setting);
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
 
     }
 
-    private void clickListener(){
-        settingBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this, ReplacerActivity.class));
-                    //Go back to home page
-                    finish();
-                }
-            });
-    }
 
     private void addTabs(){
         //

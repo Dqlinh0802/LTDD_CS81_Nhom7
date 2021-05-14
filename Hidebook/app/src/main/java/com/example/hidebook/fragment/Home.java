@@ -1,10 +1,15 @@
 package com.example.hidebook.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,8 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
+import com.example.hidebook.MainActivity;
 import com.example.hidebook.R;
+import com.example.hidebook.ReplacerActivity;
 import com.example.hidebook.adapter.HomeAdapter;
 import com.example.hidebook.model.HomeModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,12 +46,23 @@ public class Home extends Fragment {
     HomeAdapter adapter;
     private List<HomeModel> list;
 
+
     //Linh
     private FirebaseUser user;
     DocumentReference reference;
+    private ImageButton settingBT;
 
     public Home() {
         // Required empty public constructor
+    }
+
+    private void clickListener(){
+        settingBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
     }
 
 
@@ -53,6 +73,7 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -69,12 +90,20 @@ public class Home extends Fragment {
 
         //Linh
         loadDataFromFirestore();
+
+        //Test log out
+        clickListener();
     }
     private void init(View view){
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        if(getActivity() != null)
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        settingBT = view.findViewById(R.id.ib_setting);
 
         //Linh
         FirebaseAuth auth = FirebaseAuth.getInstance();
