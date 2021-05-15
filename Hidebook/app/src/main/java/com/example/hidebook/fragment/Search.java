@@ -46,29 +46,17 @@ public class Search extends Fragment {
 
     CollectionReference reference;
 
-<<<<<<< HEAD
-    //
-    OnDataPass onDataPass;
-
-    //
-    public interface OnDataPass{
-        void onChange( String uid);
-=======
     OnDataPass onDataPass;
 
 
     public interface OnDataPass{
         void onChange(String uid);
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-<<<<<<< HEAD
-=======
 
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
         onDataPass = (OnDataPass) context;
     }
 
@@ -97,13 +85,7 @@ public class Search extends Fragment {
 
         searchUser();
 
-<<<<<<< HEAD
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-=======
         clickListener();
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
     }
 
@@ -114,21 +96,7 @@ public class Search extends Fragment {
             public void onClicked(String uid) {
                 onDataPass.onChange(uid);
             }
-<<<<<<< HEAD
-        });*/
 
-        clickListener();
-    }
-
-    private void clickListener(){
-        userAdapter.OnUserClicked(new UserAdapter.OnUserClicked() {
-            @Override
-            public void onClicked(String uid) {
-                onDataPass.onChange( uid);
-            }
-=======
-
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
         });
     }
 
@@ -138,11 +106,7 @@ public class Search extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-<<<<<<< HEAD
-                reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-=======
                 reference.orderBy("search").startAt(query).endAt(query+"\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
 
                     @Override

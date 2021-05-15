@@ -51,7 +51,6 @@ public class NotificationAdapter extends  RecyclerView.Adapter<NotificationAdapt
         holder.notificationTV.setText(notification);
 
 
-
     }
 
     @Override

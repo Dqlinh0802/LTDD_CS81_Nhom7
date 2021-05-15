@@ -42,19 +42,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
 
-<<<<<<< HEAD
-        if (list.get(position).getUid().equals(user.getUid())) {
-            holder.layout.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
-        } else {
-=======
         if(list.get(position).getUid().equals(user.getUid())){
 
             holder.layout.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
         }else {
 
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
             holder.layout.setVisibility(View.VISIBLE);
         }
 
@@ -67,15 +60,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 .timeout(6500)
                 .into(holder.profileImage);
 
-<<<<<<< HEAD
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onUserClicked.onClicked(list.get(position).getUid());
-            }
-        });
-=======
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,15 +68,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         });
 
 
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
     }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     @Override
     public int getItemCount() {
         return list.size();
@@ -113,19 +92,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
             layout = itemView.findViewById(R.id.relativeLayout);
         }
 
-<<<<<<< HEAD
-
-
-    }
-
-    public void OnUserClicked (OnUserClicked onUserClicked){
-        this.onUserClicked = onUserClicked;
-    }
-
-    public interface OnUserClicked{
-        void onClicked(String uid);
-=======
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     }
 
 

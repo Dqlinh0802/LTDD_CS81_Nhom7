@@ -23,13 +23,9 @@ import com.example.hidebook.adapter.ViewPagerAdapter;
 import com.example.hidebook.fragment.Search;
 import com.google.android.material.tabs.TabLayout;
 
-<<<<<<< HEAD
-public class  MainActivity extends AppCompatActivity implements Search.OnDataPass{
-=======
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
 import static com.example.hidebook.utils.Constants.PREF_DIRECTORY;
 import static com.example.hidebook.utils.Constants.PREF_NAME;
@@ -189,19 +185,6 @@ public class MainActivity extends AppCompatActivity implements Search.OnDataPass
     }
 
 
-<<<<<<< HEAD
-    @Override
-    public void onChange(String uid) {
-        viewPager.setCurrentItem(Integer.parseInt(uid));
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(viewPager.getCurrentItem() == 4)
-            viewPager.setCurrentItem(0);
-        else
-            super.onBackPressed();
-=======
     private Bitmap loadProfileImage(String directory){
         try{
             File file = new File(directory,"profile.png");
@@ -210,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements Search.OnDataPass
             e.printStackTrace();
             return null;
         }
->>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     }
 
     public static String USER_ID;
