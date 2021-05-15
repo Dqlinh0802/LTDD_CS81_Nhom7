@@ -1,6 +1,7 @@
 package com.example.hidebook.fragment;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,6 +68,7 @@ public class Add extends Fragment {
     private GalleryAdapter adapter;
     private FirebaseUser user;
 
+    Dialog dialog;
     Uri imageUri;
     public Add() {
         // Required empty public constructor
@@ -97,7 +100,7 @@ public class Add extends Fragment {
         adapter.SendImage(new GalleryAdapter.SendImage() {
             @Override
             public void onSend(Uri picUri) {
-                imageUri = picUri;
+
                 Glide.with(getContext())
                         .load(picUri)
                         .into(imageView);
@@ -116,13 +119,14 @@ public class Add extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageReference = storage.getReference().child("Post Images/"+System.currentTimeMillis());
+                final StorageReference storageReference = storage.getReference().child("Post Images/"+System.currentTimeMillis());
 
+                dialog.show();
                 storageReference.putFile(imageUri)
                         .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                if(task.isSuccessful())
+                                if(task.isSuccessful()) {
                                     storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                         @Override
                                         public void onSuccess(Uri uri) {
@@ -130,6 +134,10 @@ public class Add extends Fragment {
                                             upLoadData(uri.toString());
                                         }
                                     });
+                                }else {
+                                    dialog.dismiss();
+                                    Toast.makeText(getContext(),"Failed to upload post", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }
@@ -154,10 +162,12 @@ public class Add extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             System.out.println();
+                            Toast.makeText(getContext(),"Uploaded",Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getContext(), "Error" + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
+                        dialog.dismiss();
                     }
                 });
 
@@ -170,6 +180,10 @@ public class Add extends Fragment {
         nextBtn = view.findViewById(R.id.nextBtn);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.loading_dialog);
+        dialog.getWindow().setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),R.drawable.dialog_bg,null));
+        dialog.setCancelable(false);
     }
 
     @Override
@@ -218,10 +232,12 @@ public class Add extends Fragment {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK){
-                Uri image  = result.getUri();
+
+                assert result != null;
+                imageUri  = result.getUri();
 
                 Glide.with(getContext())
-                        .load(image)
+                        .load(imageUri)
                         .into(imageView);
                 imageView.setVisibility(View.VISIBLE);
                 nextBtn.setVisibility(View.VISIBLE);

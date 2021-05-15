@@ -6,9 +6,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,11 +23,22 @@ import com.example.hidebook.adapter.ViewPagerAdapter;
 import com.example.hidebook.fragment.Search;
 import com.google.android.material.tabs.TabLayout;
 
+<<<<<<< HEAD
 public class  MainActivity extends AppCompatActivity implements Search.OnDataPass{
+=======
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
+
+import static com.example.hidebook.utils.Constants.PREF_DIRECTORY;
+import static com.example.hidebook.utils.Constants.PREF_NAME;
+
+public class MainActivity extends AppCompatActivity implements Search.OnDataPass{
 
     private TabLayout tabLayout;
 
-
+//    OnUserProfileUid onUserProfileUid;
     private ViewPager viewPager;
 
     ViewPagerAdapter pagerAdapter;
@@ -62,7 +78,15 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_add));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_notification_selected));
+//        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_user));
+
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME,MODE_PRIVATE);
+        String directory = preferences.getString(PREF_DIRECTORY,"");
+
+        Bitmap bitmap = loadProfileImage(directory);
+        Drawable drawable = new BitmapDrawable(getResources(),bitmap);
+
+        tabLayout.addTab(tabLayout.newTab().setIcon(drawable));
         //
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -101,10 +125,10 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
                         tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
                         //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
                         break;
-                    case 4:
-                        tabLayout.getTabAt(4).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
-                        //tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
-                        break;
+//                    case 4:
+//                        tabLayout.getTabAt(4).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
+//                        //tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
+//                        break;
 
                 }
             }
@@ -127,10 +151,10 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
                         //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification);
                         tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#ABCBC3"), PorterDuff.Mode.SRC_IN);
                         break;
-                    case 4:
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
-
-                        break;
+//                    case 4:
+//                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
+//
+//                        break;
                 }
             }
 
@@ -153,11 +177,11 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
                         tabLayout.getTabAt(3).getIcon().setColorFilter(Color.parseColor("#FFCC99"), PorterDuff.Mode.SRC_IN);
                         //tabLayout.getTabAt(3).setIcon(R.drawable.ic_notification_selected);
                         break;
-                    case 4:
-
-                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_search);
-
-                        break;
+//                    case 4:
+//
+//                        tabLayout.getTabAt(4).setIcon(R.drawable.ic_user);
+//
+//                        break;
                 }
 
             }
@@ -165,6 +189,7 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
     }
 
 
+<<<<<<< HEAD
     @Override
     public void onChange(String uid) {
         viewPager.setCurrentItem(Integer.parseInt(uid));
@@ -176,7 +201,35 @@ public class  MainActivity extends AppCompatActivity implements Search.OnDataPas
             viewPager.setCurrentItem(0);
         else
             super.onBackPressed();
+=======
+    private Bitmap loadProfileImage(String directory){
+        try{
+            File file = new File(directory,"profile.png");
+            return BitmapFactory.decodeStream(new FileInputStream(file));
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+            return null;
+        }
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     }
 
+    public static String USER_ID;
+    public static boolean IS_SEARCHED_USER = false;
 
+    @Override
+    public void onChange(String uid) {
+        USER_ID = uid;
+        IS_SEARCHED_USER = true;
+        viewPager.setCurrentItem(4);
+    }
+    @Override
+    public void onBackPressed() {
+
+        if(viewPager.getCurrentItem() == 4) {
+            viewPager.setCurrentItem(0);
+            IS_SEARCHED_USER = false;
+        }
+        else
+            super.onBackPressed();
+    }
 }

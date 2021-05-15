@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.example.hidebook.adapter.UserAdapter;
 import com.example.hidebook.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -42,17 +46,29 @@ public class Search extends Fragment {
 
     CollectionReference reference;
 
+<<<<<<< HEAD
     //
     OnDataPass onDataPass;
 
     //
     public interface OnDataPass{
         void onChange( String uid);
+=======
+    OnDataPass onDataPass;
+
+
+    public interface OnDataPass{
+        void onChange(String uid);
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
         onDataPass = (OnDataPass) context;
     }
 
@@ -81,18 +97,24 @@ public class Search extends Fragment {
 
         searchUser();
 
+<<<<<<< HEAD
         /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+=======
+        clickListener();
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
-                return false;
-            }
+    }
 
+    private void clickListener(){
+
+        userAdapter.OnUserClicked(new UserAdapter.OnUserClicked() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
+            public void onClicked(String uid) {
+                onDataPass.onChange(uid);
             }
+<<<<<<< HEAD
         });*/
 
         clickListener();
@@ -104,15 +126,23 @@ public class Search extends Fragment {
             public void onClicked(String uid) {
                 onDataPass.onChange( uid);
             }
+=======
+
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
         });
     }
+
 
     private void searchUser(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
+<<<<<<< HEAD
                 reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+=======
+                reference.orderBy("search").startAt(query).endAt(query+"\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+>>>>>>> 818aec88eba5e667c013b7d937b54ce779865723
 
 
                     @Override
@@ -141,6 +171,8 @@ public class Search extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
+                if (newText.equals(""))
+                    loadUserData();
                 return false;
             }
         });
@@ -148,8 +180,6 @@ public class Search extends Fragment {
     }
 
     private void loadUserData(){
-
-
 
         reference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -174,7 +204,6 @@ public class Search extends Fragment {
     }
 
 
-
     private void init(View view){
         searchView = view.findViewById(R.id.searchView);
 
@@ -187,4 +216,7 @@ public class Search extends Fragment {
         recyclerView.setAdapter(userAdapter);
 
     }
+
+
+
 }

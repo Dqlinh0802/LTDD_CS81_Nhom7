@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Add Somthing About This Post"
-                android:minLines="12" />
+                android:minLines="5" />
 
             <View
                 android:id="@+id/view"
