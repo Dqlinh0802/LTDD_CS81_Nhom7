@@ -51,7 +51,6 @@ public class Search extends Fragment {
 
     public interface OnDataPass{
         void onChange(String uid);
-
     }
 
     @Override
