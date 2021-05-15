@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.example.hidebook.adapter.UserAdapter;
 import com.example.hidebook.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -84,19 +88,6 @@ public class Search extends Fragment {
 
         clickListener();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
     }
 
     private void clickListener(){
@@ -112,30 +103,32 @@ public class Search extends Fragment {
 
 
     private void searchUser(){
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                reference.orderBy("search").startAt(query).endAt(query + "\uf8ff")
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                reference.orderBy("search").startAt(query).endAt(query+"\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                        if (task.isSuccessful()){
-
-                            for (DocumentSnapshot snapshot: task.getResult()){
-                                if (!snapshot.exists())
+                        if(task.isSuccessful()){
+                            list.clear();
+                            for(DocumentSnapshot snapshot: task.getResult()){
+                                if(!snapshot.exists())
                                     return;
-
 
                                 Users users = snapshot.toObject(Users.class);
                                 list.add(users);
+
                             }
                             userAdapter.notifyDataSetChanged();
                         }
+
                     }
                 });
+
 
                 return false;
             }
@@ -153,24 +146,27 @@ public class Search extends Fragment {
 
     private void loadUserData(){
 
-        reference.addSnapshotListener((value, error) -> {
-            if(error != null)
-                return;
-            if(value == null)
-                return;
+        reference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable  QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null)
+                    return;
+                if(value == null)
+                    return;
 
-            list.clear();
-            for (QueryDocumentSnapshot snapshot: value){
+                list.clear();
+                for(QueryDocumentSnapshot snapshot: value){
 
-                Users users = snapshot.toObject(Users.class);
-                list.add(users);
+                    Users users = snapshot.toObject(Users.class);
+                    list.add(users);
+                }
+                userAdapter.notifyDataSetChanged();
+
+
             }
-            userAdapter.notifyDataSetChanged();
-
         });
 
     }
-
 
 
     private void init(View view){
