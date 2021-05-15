@@ -149,12 +149,21 @@ public class Add extends Fragment {
 
         String id = reference.document().getId();
         String description = descET.getText().toString();
+        List<String> list = new ArrayList<>();
 
         Map<String, Object> map =  new HashMap<>();
         map.put("id", id);
         map.put("description", description);
         map.put("imageUrl", imageURL);
         map.put("timestamp", FieldValue.serverTimestamp());
+
+
+        //Linh
+        map.put("name", user.getDisplayName());
+        map.put("profileImage", String.valueOf(user.getPhotoUrl()));
+        map.put("likes", list);
+        map.put("comments", "");
+        map.put("uid", user.getUid());
 
         reference.document(id).set(map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

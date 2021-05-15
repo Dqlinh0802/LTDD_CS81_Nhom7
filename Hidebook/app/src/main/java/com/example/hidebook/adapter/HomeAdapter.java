@@ -66,19 +66,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         holder.tv_userName.setText(list.get(position).getName());
         holder.tv_time.setText(""+ list.get(position).getTimestamp());
 
-        List<String> likeList = list.get(position).getLikes();
-        int count = likeList.size();
-        if(count == 0)
-        {
-            holder.tv_likeCount.setVisibility(View.INVISIBLE);
+//        List<String> likeList = list.get(position).getLikes();
+//        int count = likeList.size();
+//        if(count == 0)
+//        {
+//            holder.tv_likeCount.setVisibility(View.INVISIBLE);
+//
+//        }else if(count == 1) {
+//            holder.tv_likeCount.setText(count + " like");
+//        }else {
+//            holder.tv_likeCount.setText(count + " likes");
+//        }
 
-        }else if(count == 1) {
-            holder.tv_likeCount.setText(count + " like");
-        }else {
-            holder.tv_likeCount.setText(count + " likes");
-        }
-
-        holder.cb_like.setChecked(likeList.contains(user.getUid()));
+        //holder.cb_like.setChecked(likeList.contains(user.getUid()));
 
         holder.tv_description.setText(list.get(position).getDescription());
 

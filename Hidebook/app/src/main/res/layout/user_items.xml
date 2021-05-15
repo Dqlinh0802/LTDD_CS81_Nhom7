@@ -23,6 +23,7 @@
         android:padding="8dp"
         android:text="Username"
         android:textStyle="bold"
+        android:textColor="@color/black_2"
         android:textSize="18sp"/>
     <TextView
         android:id="@+id/statusTV"
@@ -34,5 +35,6 @@
         android:paddingEnd="8dp"
         android:layout_below="@id/nameTV"
         android:text="Status"
+        android:textColor="@color/background"
         android:textStyle="bold"/>
 </RelativeLayout>
