@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         // hide the title bar
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         //Set full screen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Initialize object animator
@@ -79,7 +79,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
 
                 if(user == null){
-                    startActivity(new Intent(SplashActivity.this, FragmentReplacerActivity.class));
+                    startActivity(new Intent(SplashActivity.this, ReplacerActivity.class));
                     finish();
                 }else {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));

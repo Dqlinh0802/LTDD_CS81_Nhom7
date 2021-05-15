@@ -5,15 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         app:civ_border_color="#434343"
         app:civ_border_width="1dp"
         android:src="@drawable/ic_person"
         android:layout_margin="8dp"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_toRightOf="@+id/profileImage"
         android:layout_toEndOf="@+id/profileImage"
         android:gravity="center_vertical"
@@ -32,13 +34,13 @@
             android:textColor="#000"
             android:text="2h"/>
     </LinearLayout>
-    
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_below="@+id/profileImage"
-        android:background="#ff0000"/>
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/profileImage"/>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -57,22 +59,33 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@drawable/ic_comment"/>
+
         <ImageButton
             android:id="@+id/btn_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:background="@drawable/ic_share"/>
+            android:background="@drawable/ic_share" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textStyle="bold"
+        android:layout_below="@+id/linearLayout"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"/>
     <TextView
         android:id="@+id/tv_likeCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="100 Likes"
         android:textStyle="bold"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/tv_desc"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"/>
+
 
 </RelativeLayout>

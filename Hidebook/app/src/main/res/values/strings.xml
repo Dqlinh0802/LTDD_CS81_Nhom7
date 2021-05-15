@@ -13,7 +13,12 @@
     <string name="username">Username</string>
     <string name="recover">Recover</string>
     <string name="back_to_login">Back to login</string>
+
+    <string name="add_something_about_this_post">Add something about this post.</string>
+
+
     <string name="posts">Posts</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+
 </resources>

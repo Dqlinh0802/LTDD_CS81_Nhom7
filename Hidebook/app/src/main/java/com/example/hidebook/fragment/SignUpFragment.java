@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hidebook.FragmentReplacerActivity;
 import com.example.hidebook.MainActivity;
 import com.example.hidebook.R;
+import com.example.hidebook.ReplacerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
-import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -96,7 +96,7 @@ public class SignUpFragment extends Fragment {
         signinTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((FragmentReplacerActivity) getActivity()).setFragment(new SignInFragment());
+                ((ReplacerActivity) getActivity()).setFragment(new SignInFragment());
             }
         });
 
@@ -151,7 +151,15 @@ public class SignUpFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+
                             FirebaseUser user = auth.getCurrentUser();
+
+                            UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
+                            request.setDisplayName(name);
+
+                            user.updateProfile(request.build());
+
+
                             user.sendEmailVerification()
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -177,14 +185,25 @@ public class SignUpFragment extends Fragment {
 
     //Linh
     private void uploadUser(FirebaseUser user, String name, String email){
+        List<String> list = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+
         Map<String , Object> map = new HashMap<>();
-        map.put("name", name);
+        map.put("userName", name);
         map.put("email", email);
         map.put("profileImage", " ");
         map.put("uid", user.getUid());
-        map.put("following",0);
-        map.put("followers",0);
+       // map.put("following", 0);
+       // map.put("followers", 0);
         map.put("status"," ");
+        //Bảo -
+        map.put("search", name.toLowerCase());
+
+        //Ngan
+        map.put("followers",list);
+        map.put("following",list1);
+
+
 
 
         FirebaseFirestore.getInstance().collection("User").document(user.getUid())
