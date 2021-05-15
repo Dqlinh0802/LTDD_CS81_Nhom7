@@ -1,5 +1,6 @@
 package com.example.hidebook.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,21 @@ public class Search extends Fragment {
 
     CollectionReference reference;
 
+    OnDataPass onDataPass;
+
+
+    public interface OnDataPass{
+        void onChange(String uid);
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        onDataPass = (OnDataPass) context;
+    }
+
     public Search() {
         // Required empty public constructor
     }
@@ -66,6 +82,8 @@ public class Search extends Fragment {
 
         searchUser();
 
+        clickListener();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -81,33 +99,43 @@ public class Search extends Fragment {
         });
     }
 
+    private void clickListener(){
+
+        userAdapter.OnUserClicked(new UserAdapter.OnUserClicked() {
+            @Override
+            public void onClicked(String uid) {
+                onDataPass.onChange(uid);
+            }
+
+        });
+    }
+
+
     private void searchUser(){
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    
-
+                reference.orderBy("search").startAt(query).endAt(query + "\uf8ff")
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                        if(task.isSuccessful()){
-                            list.clear();
-                            for(DocumentSnapshot snapshot: task.getResult()){
-                                if(!snapshot.exists())
+                        if (task.isSuccessful()){
+
+                            for (DocumentSnapshot snapshot: task.getResult()){
+                                if (!snapshot.exists())
                                     return;
+
 
                                 Users users = snapshot.toObject(Users.class);
                                 list.add(users);
-
                             }
                             userAdapter.notifyDataSetChanged();
                         }
-
                     }
                 });
-
 
                 return false;
             }
@@ -115,6 +143,8 @@ public class Search extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
+                if (newText.equals(""))
+                    loadUserData();
                 return false;
             }
         });
@@ -123,26 +153,20 @@ public class Search extends Fragment {
 
     private void loadUserData(){
 
+        reference.addSnapshotListener((value, error) -> {
+            if(error != null)
+                return;
+            if(value == null)
+                return;
 
+            list.clear();
+            for (QueryDocumentSnapshot snapshot: value){
 
-        reference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable  QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error != null)
-                    return;
-                if(value == null)
-                    return;
-
-                list.clear();
-                for(QueryDocumentSnapshot snapshot: value){
-
-                    Users users = snapshot.toObject(Users.class);
-                    list.add(users);
-                }
-                userAdapter.notifyDataSetChanged();
-
-
+                Users users = snapshot.toObject(Users.class);
+                list.add(users);
             }
+            userAdapter.notifyDataSetChanged();
+
         });
 
     }
@@ -161,4 +185,7 @@ public class Search extends Fragment {
         recyclerView.setAdapter(userAdapter);
 
     }
+
+
+
 }
