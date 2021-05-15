@@ -1,5 +1,6 @@
 package com.example.hidebook.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,20 @@ public class Search extends Fragment {
 
     CollectionReference reference;
 
+    //
+    OnDataPass onDataPass;
+
+    //
+    public interface OnDataPass{
+        void onChange( String uid);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        onDataPass = (OnDataPass) context;
+    }
+
     public Search() {
         // Required empty public constructor
     }
@@ -66,7 +81,7 @@ public class Search extends Fragment {
 
         searchUser();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
@@ -78,6 +93,17 @@ public class Search extends Fragment {
 
                 return false;
             }
+        });*/
+
+        clickListener();
+    }
+
+    private void clickListener(){
+        userAdapter.OnUserClicked(new UserAdapter.OnUserClicked() {
+            @Override
+            public void onClicked(String uid) {
+                onDataPass.onChange( uid);
+            }
         });
     }
 
@@ -87,7 +113,7 @@ public class Search extends Fragment {
             public boolean onQueryTextSubmit(String query) {
 
                 reference.orderBy("search").startAt(query).endAt(query+"/uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    
+
 
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

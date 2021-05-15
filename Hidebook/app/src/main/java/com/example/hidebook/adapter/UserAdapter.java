@@ -24,6 +24,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private List<Users> list;
 
+    OnUserClicked onUserClicked;
+
     public UserAdapter(List<Users> list) {
         this.list = list;
     }
@@ -39,6 +41,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
     @Override
     public void onBindViewHolder(@NonNull UserHolder holder, int position) {
 
+        if (list.get(position).getUid().equals(user.getUid())) {
+            holder.layout.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+        } else {
+            holder.layout.setVisibility(View.VISIBLE);
+        }
+
         holder.nameTV.setText(list.get(position).getName());
         holder.statusTV.setText(list.get(position).getStatus());
 
@@ -48,12 +57,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
                 .timeout(6500)
                 .into(holder.profileImage);
 
-        if(list.get(position).getUid().equals(user.getUid())){
 
-            holder.layout.setVisibility(View.GONE);
-        }
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onUserClicked.onClicked(list.get(position).getUid());
+            }
+        });
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -74,5 +88,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
             statusTV = itemView.findViewById(R.id.statusTV);
             layout = itemView.findViewById(R.id.relativeLayout);
         }
+
+
+
+    }
+
+    public void OnUserClicked (OnUserClicked onUserClicked){
+        this.onUserClicked = onUserClicked;
+    }
+
+    public interface OnUserClicked{
+        void onClicked(String uid);
     }
 }

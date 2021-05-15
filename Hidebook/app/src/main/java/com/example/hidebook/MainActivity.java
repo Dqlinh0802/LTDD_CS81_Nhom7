@@ -15,9 +15,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.example.hidebook.adapter.ViewPagerAdapter;
+import com.example.hidebook.fragment.Search;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity implements Search.OnDataPass{
 
     private TabLayout tabLayout;
 
@@ -164,6 +165,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onChange(String uid) {
+        viewPager.setCurrentItem(Integer.parseInt(uid));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(viewPager.getCurrentItem() == 4)
+            viewPager.setCurrentItem(0);
+        else
+            super.onBackPressed();
+    }
 
 
 }
