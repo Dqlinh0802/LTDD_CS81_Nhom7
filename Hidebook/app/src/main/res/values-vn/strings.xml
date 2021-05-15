@@ -15,11 +15,11 @@
     <string name="recover">Recover</string>
     <string name="back_to_login">Back to login</string>
 
-    <string name="add_something_about_this_post">Add something about this post.</string>
+    <string name="add_something_about_this_post">Đăng gì đi bạn</string>
 
-    <string name="posts">Posts</string>
-    <string name="followers">Followers</string>
-    <string name="following">Following</string>
+    <string name="posts">Bài đăng</string>
+    <string name="followers">Người theo dõi</string>
+    <string name="following">Đang theo dõi</string>
     <string name="Notification">Thông báo</string>
     <string name="Choose_Language">Chọn ngôn ngữ....</string>
     <string name="setting">Cài đặt</string>

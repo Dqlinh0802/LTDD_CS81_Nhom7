@@ -22,6 +22,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <ImageButton
+                android:layout_centerVertical="true"
+                android:id="@+id/translateIB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_g_translate_24"
+                android:layout_alignParentStart="true"
+                />
+
+
 
             <TextView
                 android:layout_width="wrap_content"

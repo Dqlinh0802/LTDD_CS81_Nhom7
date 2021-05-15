@@ -1,7 +1,11 @@
 package com.example.hidebook.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,11 +53,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class Home extends Fragment {
 
+    //Bao
+    private ImageButton changeLBT;
 
     private RecyclerView recyclerView;
     HomeAdapter adapter;
@@ -85,13 +92,61 @@ public class Home extends Fragment {
 
             }
         });
+        //Bao
+        changeLBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLanguageDialog();
+            }
+        });
     }
 
+
+    private void showChangeLanguageDialog(){
+        final String[] listItems = {"English", "Việt Nam"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        mBuilder.setTitle(R.string.Choose_Language);
+        mBuilder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(which == 0){
+                    setLocale("en");
+                    getActivity().recreate();
+
+                } else if (which == 1){
+                    setLocale("vn");
+                    getActivity().recreate();
+                }
+                dialog.dismiss();
+            }
+        });
+        AlertDialog mDial = mBuilder.create();
+        mDial.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getActivity().getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(getString(R.string.setting), Activity.MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+
+    }
+
+    public void loadLocale(){
+        SharedPreferences pref = getActivity().getSharedPreferences(getString(R.string.setting), Activity.MODE_PRIVATE);
+        String language = pref.getString("My_Lang", "");
+        setLocale(language);
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        loadLocale();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -103,6 +158,9 @@ public class Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         init(view);
+
+        //Bao
+        changeLBT = view.findViewById(R.id.translateIB);
 
         list = new ArrayList<>();
         adapter = new HomeAdapter(list, getContext());
