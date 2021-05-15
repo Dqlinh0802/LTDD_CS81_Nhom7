@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Add Somthing About This Post"
+                android:hint="@string/add_something_about_this_post"
                 android:minLines="5" />
 
             <View

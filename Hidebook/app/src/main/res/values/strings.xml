@@ -20,5 +20,9 @@
     <string name="posts">Posts</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="Notification">Notifications</string>
+    <string name="Choose_Language">Choose Language....</string>
+    <string name="setting">Settings</string>
+    <string name="search">Search here ...</string>
 
 </resources>

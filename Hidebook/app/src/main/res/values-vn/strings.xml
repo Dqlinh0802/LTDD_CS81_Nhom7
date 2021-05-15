@@ -20,5 +20,10 @@
     <string name="posts">Posts</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="Notification">Thông báo</string>
+    <string name="Choose_Language">Chọn ngôn ngữ....</string>
+    <string name="setting">Cài đặt</string>
+    <string name="search">Tìm kiếm...</string>
+
 
 </resources>
